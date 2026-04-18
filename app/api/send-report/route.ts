@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
     `;
 
     await resend.emails.send({
-      from: 'Gated Enterprise <noreply@gated.enterprise>',
+      from: 'Gated Enterprise <noreply@gatedenterprise.com>',
       to: email,
       subject: `Your Agentforce Cost Shock Report — Real ROI: ${results.realROI.toFixed(0)}%`,
       html,
@@ -107,8 +107,8 @@ export async function POST(req: NextRequest) {
 
     // Also notify Adeel
     await resend.emails.send({
-      from: 'Agentforce Calculator <noreply@gated.enterprise>',
-      to: 'adeel@gated.enterprise',
+      from: 'Agentforce Calculator <noreply@gatedenterprise.com>',
+      to: 'adeel@gatedenterprise.com',
       subject: `🎯 New Lead: ${name} @ ${company}`,
       html: `<p>New calculator submission:</p><ul><li><strong>Name:</strong> ${name}</li><li><strong>Company:</strong> ${company}</li><li><strong>Email:</strong> ${email}</li><li><strong>Monthly Conversations:</strong> ${inputs.monthlyConversations}</li><li><strong>Current Labor Cost:</strong> ${fmt(results.currentLaborCost)}/mo</li><li><strong>Real ROI:</strong> ${results.realROI.toFixed(0)}%</li></ul>`,
     });

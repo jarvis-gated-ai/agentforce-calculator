@@ -314,7 +314,7 @@ export default function Home() {
                 </div>
                 <div className="mt-6 p-4 bg-blue-900/30 border border-blue-500/30 rounded-xl text-sm text-blue-200">
                   <strong>Want an expert review?</strong> We help IT and RevOps leaders pressure-test Salesforce proposals and architect implementations that actually pencil out.{' '}
-                  <a href="mailto:adeel@gated.enterprise" className="underline hover:text-white">Book a free 15-min call →</a>
+                  <a href="mailto:adeel@gatedenterprise.com" className="underline hover:text-white">Book a free 15-min call →</a>
                 </div>
               </div>
             )}
@@ -323,7 +323,7 @@ export default function Home() {
 
         {/* Footer */}
         <div className="mt-16 pt-8 border-t border-white/10 text-center text-slate-500 text-sm">
-          <p>© 2026 Gated Enterprise · Premium Salesforce Consulting · <a href="mailto:adeel@gated.enterprise" className="hover:text-slate-300">adeel@gated.enterprise</a></p>
+          <p>© 2026 Gated Enterprise · Premium Salesforce Consulting · <a href="mailto:adeel@gatedenterprise.com" className="hover:text-slate-300">adeel@gatedenterprise.com</a></p>
           <p className="mt-1 text-xs">Estimates are illustrative. Actual costs vary by org complexity and contract terms.</p>
         </div>
       </div>
