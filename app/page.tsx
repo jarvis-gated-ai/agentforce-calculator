@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 interface CalculatorInputs {
   monthlyConversations: number;
@@ -60,6 +60,85 @@ function calculate(inputs: CalculatorInputs): CalculatorResults {
 function fmt(n: number) {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
 }
+
+// Tooltip component
+function Tooltip({ text }: { text: string }) {
+  const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setVisible(false);
+      }
+    }
+    if (visible) document.addEventListener('mousedown', handleOutside);
+    return () => document.removeEventListener('mousedown', handleOutside);
+  }, [visible]);
+
+  return (
+    <div className="relative inline-flex items-center" ref={ref}>
+      <button
+        type="button"
+        className="ml-1.5 w-4 h-4 rounded-full bg-slate-600 hover:bg-blue-500 text-white text-[10px] font-bold flex items-center justify-center transition-colors cursor-pointer"
+        onMouseEnter={() => setVisible(true)}
+        onMouseLeave={() => setVisible(false)}
+        onClick={() => setVisible(v => !v)}
+        aria-label="More info"
+      >
+        i
+      </button>
+      {visible && (
+        <div className="absolute z-50 left-6 top-1/2 -translate-y-1/2 w-60 bg-slate-800 border border-slate-600 text-slate-200 text-xs rounded-lg px-3 py-2 shadow-xl leading-relaxed pointer-events-none">
+          {text}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Labeled input with optional tooltip
+function InputField({
+  label,
+  tooltip,
+  value,
+  onChange,
+}: {
+  label: string;
+  tooltip: string;
+  value: number;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <label className="block">
+      <span className="text-sm text-slate-400 mb-1 flex items-center">
+        {label}
+        <Tooltip text={tooltip} />
+      </span>
+      <input
+        type="number"
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400 transition-colors"
+      />
+    </label>
+  );
+}
+
+const TOOLTIPS = {
+  monthlyConversations:
+    'Total inbound service interactions per month across all channels — phone, chat, email, web. Use your current ticketing or contact center volume.',
+  avgHandleTime:
+    'Average handle time (AHT) in minutes per conversation, including talk time and after-call work. Industry average is 6–10 minutes.',
+  agentHourlyCost:
+    'Fully-loaded cost per agent hour: base salary + benefits + overhead + tooling. Typically $18–$35/hr for US-based support.',
+  currentAgentCount:
+    'Your current headcount of full-time customer service / support agents, excluding supervisors and QA.',
+  agentforceSeats:
+    'Number of Agentforce Digital Labour seats in the Salesforce quote. Each seat typically handles ~1,000 automated conversations/month.',
+  agentforceCostPerSeat:
+    'Monthly license cost per Agentforce seat as quoted by Salesforce. Standard list price is $150/seat/month, but varies by tier and negotiation.',
+};
 
 export default function Home() {
   const [inputs, setInputs] = useState<CalculatorInputs>({
@@ -137,69 +216,47 @@ export default function Home() {
             <h2 className="font-semibold text-lg text-white">Your Current Operations</h2>
 
             <div className="space-y-4">
-              <label className="block">
-                <span className="text-sm text-slate-400 mb-1 block">Monthly Service Conversations</span>
-                <input
-                  type="number"
-                  value={inputs.monthlyConversations}
-                  onChange={e => updateInput('monthlyConversations', e.target.value)}
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400"
-                />
-              </label>
-
-              <label className="block">
-                <span className="text-sm text-slate-400 mb-1 block">Avg Handle Time (minutes)</span>
-                <input
-                  type="number"
-                  value={inputs.avgHandleTime}
-                  onChange={e => updateInput('avgHandleTime', e.target.value)}
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400"
-                />
-              </label>
-
-              <label className="block">
-                <span className="text-sm text-slate-400 mb-1 block">Agent Fully-Loaded Hourly Cost ($)</span>
-                <input
-                  type="number"
-                  value={inputs.agentHourlyCost}
-                  onChange={e => updateInput('agentHourlyCost', e.target.value)}
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400"
-                />
-              </label>
-
-              <label className="block">
-                <span className="text-sm text-slate-400 mb-1 block">Current # of Agents</span>
-                <input
-                  type="number"
-                  value={inputs.currentAgentCount}
-                  onChange={e => updateInput('currentAgentCount', e.target.value)}
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400"
-                />
-              </label>
+              <InputField
+                label="Monthly Service Conversations"
+                tooltip={TOOLTIPS.monthlyConversations}
+                value={inputs.monthlyConversations}
+                onChange={v => updateInput('monthlyConversations', v)}
+              />
+              <InputField
+                label="Avg Handle Time (minutes)"
+                tooltip={TOOLTIPS.avgHandleTime}
+                value={inputs.avgHandleTime}
+                onChange={v => updateInput('avgHandleTime', v)}
+              />
+              <InputField
+                label="Agent Fully-Loaded Hourly Cost ($)"
+                tooltip={TOOLTIPS.agentHourlyCost}
+                value={inputs.agentHourlyCost}
+                onChange={v => updateInput('agentHourlyCost', v)}
+              />
+              <InputField
+                label="Current # of Agents"
+                tooltip={TOOLTIPS.currentAgentCount}
+                value={inputs.currentAgentCount}
+                onChange={v => updateInput('currentAgentCount', v)}
+              />
             </div>
 
             <h2 className="font-semibold text-lg text-white pt-2 border-t border-white/10">Agentforce Configuration</h2>
 
             <div className="space-y-4">
-              <label className="block">
-                <span className="text-sm text-slate-400 mb-1 block">Agentforce Seats Quoted</span>
-                <input
-                  type="number"
-                  value={inputs.agentforceSeats}
-                  onChange={e => updateInput('agentforceSeats', e.target.value)}
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400"
-                />
-              </label>
-
-              <label className="block">
-                <span className="text-sm text-slate-400 mb-1 block">Cost per Seat / Month ($)</span>
-                <input
-                  type="number"
-                  value={inputs.agentforceCostPerSeat}
-                  onChange={e => updateInput('agentforceCostPerSeat', e.target.value)}
-                  className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400"
-                />
-              </label>
+              <InputField
+                label="Agentforce Seats Quoted"
+                tooltip={TOOLTIPS.agentforceSeats}
+                value={inputs.agentforceSeats}
+                onChange={v => updateInput('agentforceSeats', v)}
+              />
+              <InputField
+                label="Cost per Seat / Month ($)"
+                tooltip={TOOLTIPS.agentforceCostPerSeat}
+                value={inputs.agentforceCostPerSeat}
+                onChange={v => updateInput('agentforceCostPerSeat', v)}
+              />
             </div>
           </div>
 
@@ -314,7 +371,7 @@ export default function Home() {
                 </div>
                 <div className="mt-6 p-4 bg-blue-900/30 border border-blue-500/30 rounded-xl text-sm text-blue-200">
                   <strong>Want an expert review?</strong> We help IT and RevOps leaders pressure-test Salesforce proposals and architect implementations that actually pencil out.{' '}
-                  <a href="mailto:adeel@gatedenterprise.com" className="underline hover:text-white">Book a free 15-min call →</a>
+                  <a href="mailto:info@gatedenterprise.com" className="underline hover:text-white">Book a free 15-min call →</a>
                 </div>
               </div>
             )}
@@ -323,7 +380,7 @@ export default function Home() {
 
         {/* Footer */}
         <div className="mt-16 pt-8 border-t border-white/10 text-center text-slate-500 text-sm">
-          <p>© 2026 Gated Enterprise · Premium Salesforce Consulting · <a href="mailto:adeel@gatedenterprise.com" className="hover:text-slate-300">adeel@gatedenterprise.com</a></p>
+          <p>© 2026 Gated Enterprise · Premium Salesforce Consulting · <a href="mailto:info@gatedenterprise.com" className="hover:text-slate-300">info@gatedenterprise.com</a></p>
           <p className="mt-1 text-xs">Estimates are illustrative. Actual costs vary by org complexity and contract terms.</p>
         </div>
       </div>
