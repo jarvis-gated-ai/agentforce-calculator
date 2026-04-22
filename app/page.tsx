@@ -189,11 +189,13 @@ export default function Home() {
       {/* Hero */}
       <div className="border-b border-white/10 bg-black/20 backdrop-blur">
         <div className="max-w-5xl mx-auto px-6 py-8 flex items-center gap-4">
-          <div className="w-10 h-10 rounded-lg bg-blue-500 flex items-center justify-center font-bold text-lg">G</div>
-          <div>
-            <div className="font-semibold text-lg tracking-tight">Gated Enterprise</div>
-            <div className="text-xs text-blue-300">Premium Salesforce Consulting</div>
-          </div>
+          <a href="https://gatedenterprise.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 no-underline">
+            <div className="w-10 h-10 rounded-lg bg-blue-500 flex items-center justify-center font-bold text-lg">G</div>
+            <div>
+              <div className="font-semibold text-lg tracking-tight text-white">Gated Enterprise</div>
+              <div className="text-xs text-blue-300">gatedenterprise.com</div>
+            </div>
+          </a>
         </div>
       </div>
 
@@ -371,7 +373,7 @@ export default function Home() {
                 </div>
                 <div className="mt-6 p-4 bg-blue-900/30 border border-blue-500/30 rounded-xl text-sm text-blue-200">
                   <strong>Want an expert review?</strong> We help IT and RevOps leaders pressure-test Salesforce proposals and architect implementations that actually pencil out.{' '}
-                  <a href="mailto:info@gatedenterprise.com" className="underline hover:text-white">Book a free 15-min call →</a>
+                  <a href="https://gatedenterprise.com" className="underline hover:text-white">Book a free 15-min call →</a>
                 </div>
               </div>
             )}
@@ -380,7 +382,7 @@ export default function Home() {
 
         {/* Footer */}
         <div className="mt-16 pt-8 border-t border-white/10 text-center text-slate-500 text-sm">
-          <p>© 2026 Gated Enterprise · Premium Salesforce Consulting · <a href="mailto:info@gatedenterprise.com" className="hover:text-slate-300">info@gatedenterprise.com</a></p>
+          <p>© 2026 Gated Enterprise · Premium Salesforce Consulting · <a href="https://gatedenterprise.com" target="_blank" rel="noopener noreferrer" className="hover:text-slate-300">gatedenterprise.com</a> · <a href="mailto:info@gatedenterprise.com" className="hover:text-slate-300">info@gatedenterprise.com</a></p>
           <p className="mt-1 text-xs">Estimates are illustrative. Actual costs vary by org complexity and contract terms.</p>
         </div>
       </div>
