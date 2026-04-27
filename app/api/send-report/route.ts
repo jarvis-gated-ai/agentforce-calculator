@@ -414,14 +414,14 @@ export async function POST(req: NextRequest) {
     `;
 
     await resend.emails.send({
-      from: 'Gated Enterprise <noreply@gatedenterprise.com>',
+      from: 'Gated Enterprise <noreply@mail.gatedenterprise.com>',
       to: email,
       subject: `Your Agentforce Cost Shock Report — Real ROI: ${results.realROI.toFixed(0)}%`,
       html: submitterHtml,
     });
 
     await resend.emails.send({
-      from: 'Agentforce Calculator <noreply@gatedenterprise.com>',
+      from: 'Agentforce Calculator <noreply@mail.gatedenterprise.com>',
       to: 'info@gatedenterprise.com',
       subject: `🎯 New Lead: ${name} @ ${company} — Real ROI ${results.realROI.toFixed(0)}%`,
       html: internalHtml,
