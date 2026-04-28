@@ -1,26 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --bg-base: #080808;
-  --bg-surface: #111111;
-  --bg-raised: #1A1A1A;
-  --border-subtle: #222222;
-  --border-default: #2E2E2E;
-  --border-strong: #444444;
-  --text-primary: #F0F0F0;
-  --text-secondary: #888888;
-  --text-muted: #555555;
-  --pop: #00E5FF;
-  --pop-dim: rgba(0, 229, 255, 0.12);
-  --pop-border: rgba(0, 229, 255, 0.3);
-  --green: #00FF88;
-  --red: #FF4455;
-  --yellow: #FFB800;
+  --bg-base: #F4F4F4;
+  --bg-surface: #FFFFFF;
+  --bg-input: #F0F0F0;
+  --bg-raised: #EAEAEA;
+  --border-subtle: #E8E8E8;
+  --border-default: #D8D8D8;
+  --border-strong: #B0B0B0;
+  --text-primary: #0A0A0A;
+  --text-secondary: #555555;
+  --text-muted: #999999;
+  --pop: #FF4F00;
+  --pop-light: rgba(255, 79, 0, 0.08);
+  --pop-border: rgba(255, 79, 0, 0.25);
+  --green: #00A651;
+  --red: #D42020;
+  --amber: #D4820A;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   background: var(--bg-base);
@@ -29,47 +28,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg-base); }
-::-webkit-scrollbar-thumb { background: var(--border-strong); }
-
-/* Sharp input override */
 input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-}
+input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
 input[type="number"] { -moz-appearance: textfield; }
 
-/* Pop glow utility */
-.pop-glow {
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
-}
-
-.pop-text-glow {
-  text-shadow: 0 0 12px rgba(0, 229, 255, 0.5);
-}
-
-/* Stat accent border */
-.stat-card {
-  border-left: 2px solid var(--border-default);
+.stat-row {
+  border-left: 2px solid transparent;
   transition: border-color 0.15s ease;
 }
-.stat-card:hover {
-  border-left-color: var(--pop);
-}
-
-/* Section divider */
-.section-rule {
-  border: none;
-  border-top: 1px solid var(--border-subtle);
-}
-
-/* Ticker effect for numbers */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate-fadeUp {
-  animation: fadeUp 0.2s ease-out forwards;
-}
+.stat-row:hover { border-left-color: var(--pop); }
