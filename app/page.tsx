@@ -407,18 +407,48 @@ export default function Home() {
                 <StatRow label="Implementation Payback"
                   value={results.paybackMonths > 99 ? 'Never' : `${results.paybackMonths.toFixed(1)} mo`} last />
 
+                {/* ── Conversion CTA ── */}
                 <div style={{
-                  marginTop: '22px', background: '#F8F8F8', border: '1px solid #EEEEEE',
-                  borderLeft: '3px solid #FF4F00', padding: '16px',
-                  fontSize: '13px', color: '#777', lineHeight: '1.6',
+                  marginTop: '28px',
+                  background: '#0A0A0A',
+                  borderRadius: '14px',
+                  padding: '28px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '16px',
                 }}>
-                  <strong style={{ color: '#0A0A0A', fontWeight: '600' }}>Want an expert review?</strong>{' '}
-                  We help IT and RevOps leaders pressure-test Salesforce proposals and architect implementations that actually pencil out.{' '}
-                  <a href="https://gatedenterprise.com"
-                    style={{ color: '#FF4F00', textDecoration: 'none', fontWeight: '600' }}
-                    onMouseEnter={e => (e.currentTarget.style.textDecoration = 'underline')}
-                    onMouseLeave={e => (e.currentTarget.style.textDecoration = 'none')}
-                  >Book a free 15-min call →</a>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{
+                      width: '32px', height: '32px', background: '#FF4F00',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontWeight: '900', fontSize: '15px', color: '#fff', flexShrink: 0,
+                    }}>G</div>
+                    <div style={{ fontSize: '11px', fontWeight: '700', letterSpacing: '0.1em', color: '#666', textTransform: 'uppercase' }}>
+                      Gated Enterprise · Salesforce Consulting
+                    </div>
+                  </div>
+                  <p style={{ margin: 0, fontSize: '18px', fontWeight: '800', color: '#FFFFFF', lineHeight: '1.35', letterSpacing: '-0.02em' }}>
+                    Your numbers are real.<br />Let&apos;s talk about what to do with them.
+                  </p>
+                  <p style={{ margin: 0, fontSize: '13px', color: '#888', lineHeight: '1.6' }}>
+                    We help IT and RevOps directors pressure-test Salesforce proposals, untangle Agentforce licensing, and architect implementations that actually pencil out — before you sign.
+                  </p>
+                  <a
+                    href="https://gatedenterprise.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: '6px',
+                      background: '#FF4F00', color: '#fff', textDecoration: 'none',
+                      fontWeight: '700', fontSize: '13px', letterSpacing: '0.04em',
+                      padding: '12px 22px', borderRadius: '8px', alignSelf: 'flex-start',
+                      transition: 'background 0.15s',
+                    }}
+                    onMouseEnter={e => (e.currentTarget.style.background = '#E04400')}
+                    onMouseLeave={e => (e.currentTarget.style.background = '#FF4F00')}
+                  >
+                    Book a Free 15-Min Call →
+                  </a>
                 </div>
               </div>
             )}
